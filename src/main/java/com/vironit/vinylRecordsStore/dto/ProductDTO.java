@@ -4,7 +4,6 @@ import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
-import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.hateoas.ResourceSupport;
 
 /**
@@ -13,95 +12,134 @@ import org.springframework.hateoas.ResourceSupport;
 public class ProductDTO extends ResourceSupport {
     
     private long productId;
-    
-    private String distillery;
-    
-    @NotEmpty
+
+    private String style;
+
     @Pattern(regexp = "^[^#$%^&*()']*$")
-    private String name;
-    
+    private String artist;
+
+    @Pattern(regexp = "^[^#$%^&*()']*$")
+    private String album;
+
+    @Pattern(regexp = "^[^#$%^&*()']*$")
+    private String country;
+
     @NotNull
-    private Integer price;
-    
-    @Max(value = 2000)
-    private Integer age;
-    
+    private Integer year;
+
+    @NotNull
+    private Double price;
+
     @NotNull
     private Integer volume;
-    
+
     @NotNull
-    @Min(value = 1)
-    @Max(value = 96)
-    private Float alcohol;
-    
-    private String description;
     private boolean inStock;
 
     public ProductDTO() {
     }
 
+    public ProductDTO(String style, String artist, String album, String country, int year, double price) {
+        this.style = style;
+        this.artist = artist;
+        this.album = album;
+        this.country = country;
+        this.year = year;
+        this.price = price;
+    }
+
+    /**
+     * @return the id
+     */
     public long getProductId() {
         return productId;
     }
 
+    /**
+     * @param productId the id to set
+     */
     public void setProductId(long productId) {
         this.productId = productId;
     }
 
-    public String getDistillery() {
-        return distillery;
+    /**
+     * @return the artist
+     */
+    public String getArtist() {
+        return artist;
     }
 
-    public void setDistillery(String distillery) {
-        this.distillery = distillery;
+    /**
+     * @param artist the artist to set
+     */
+    public void setArtist(String artist) {
+        this.artist = artist;
     }
 
-    public String getName() {
-        return name;
+    public String getAlbum() {
+        return album;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setAlbum(String album) {
+        this.album = album;
     }
 
-    public Integer getPrice() {
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    public Integer getYear() {
+        return year;
+    }
+
+    public void setYear(Integer year) {
+        this.year = year;
+    }
+
+    /**
+     * @return the price
+     */
+    public Double getPrice() {
         return price;
     }
 
-    public void setPrice(Integer price) {
+    /**
+     * @param price the price to set
+     */
+    public void setPrice(Double price) {
         this.price = price;
     }
 
-    public Integer getAge() {
-        return age;
-    }
-
-    public void setAge(Integer age) {
-        this.age = age;
-    }
-
+    /**
+     * @return the volume
+     */
     public Integer getVolume() {
         return volume;
     }
 
+    /**
+     * @param volume the volume to set
+     */
     public void setVolume(Integer volume) {
         this.volume = volume;
     }
 
-    public Float getAlcohol() {
-        return alcohol;
+    /**
+     * @return the style
+     */
+    public String getStyle() {
+        return style;
     }
 
-    public void setAlcohol(Float alcohol) {
-        this.alcohol = alcohol;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
+    /**
+     * @param style the style to set
+     */
+    public void setStyle(String style) {
+        this.style = style;
     }
 
     public boolean isInStock() {

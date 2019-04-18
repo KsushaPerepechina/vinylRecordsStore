@@ -16,7 +16,6 @@ import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
-import org.hibernate.validator.constraints.NotEmpty;
 
 /**
  * Товар.
@@ -31,44 +30,45 @@ public class Product implements Serializable {
     private Long id;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "distillery_id", nullable = false)
+    @JoinColumn(name = "style_id", nullable = false)
     private Style style;
 
     @OneToOne(mappedBy = "product", cascade = CascadeType.ALL)
     private Storage storage;
 
-    @Column(name = "name", nullable = false)
-    @NotEmpty
+    @Column(name = "artist", nullable = false)
     @Pattern(regexp = "^[^#$%^&*()']*$")
-    private String name;
+    private String artist;
+
+    @Column(name = "album", nullable = false)
+    @Pattern(regexp = "^[^#$%^&*()']*$")
+    private String album;
+
+    @Column(name = "country", nullable = false)
+    @Pattern(regexp = "^[^#$%^&*()']*$")
+    private String country;
+
+    @Column(name = "year", nullable = false)
+    @NotNull
+    private Integer year;
 
     @Column(name = "price", nullable = false)
     @NotNull
-    private Integer price;
-
-    @Column(name = "description")
-    private String description;
+    private Double price;
 
     @Column(name = "volume")
     @NotNull
     private Integer volume;
 
-    @Column(name = "alcohol")
-    @NotNull
-    @Min(value = 1)
-    @Max(value = 96)
-    private Float alcohol;
-
-    @Column(name = "age")
-    @Max(value = 2000)
-    private Integer age;
-
     public Product() {
     }
 
-    public Product(Style style, String name, int price) {
+    public Product(Style style, String artist, String album, String country, int year, double price) {
         this.style = style;
-        this.name = name;
+        this.artist = artist;
+        this.album = album;
+        this.country = country;
+        this.year = year;
         this.price = price;
     }
 
@@ -87,45 +87,55 @@ public class Product implements Serializable {
     }
 
     /**
-     * @return the name
+     * @return the artist
      */
-    public String getName() {
-        return name;
+    public String getArtist() {
+        return artist;
     }
 
     /**
-     * @param name the name to set
+     * @param artist the artist to set
      */
-    public void setName(String name) {
-        this.name = name;
+    public void setArtist(String artist) {
+        this.artist = artist;
+    }
+
+    public String getAlbum() {
+        return album;
+    }
+
+    public void setAlbum(String album) {
+        this.album = album;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    public Integer getYear() {
+        return year;
+    }
+
+    public void setYear(Integer year) {
+        this.year = year;
     }
 
     /**
      * @return the price
      */
-    public Integer getPrice() {
+    public Double getPrice() {
         return price;
     }
 
     /**
      * @param price the price to set
      */
-    public void setPrice(Integer price) {
+    public void setPrice(Double price) {
         this.price = price;
-    }
-
-    /**
-     * @return the description
-     */
-    public String getDescription() {
-        return description;
-    }
-
-    /**
-     * @param description the description to set
-     */
-    public void setDescription(String description) {
-        this.description = description;
     }
 
     /**
@@ -140,34 +150,6 @@ public class Product implements Serializable {
      */
     public void setVolume(Integer volume) {
         this.volume = volume;
-    }
-
-    /**
-     * @return the alcohol
-     */
-    public Float getAlcohol() {
-        return alcohol;
-    }
-
-    /**
-     * @param alcohol the alcohol to set
-     */
-    public void setAlcohol(Float alcohol) {
-        this.alcohol = alcohol;
-    }
-
-    /**
-     * @return the age
-     */
-    public Integer getAge() {
-        return age;
-    }
-
-    /**
-     * @param age the age to set
-     */
-    public void setAge(Integer age) {
-        this.age = age;
     }
 
     /**

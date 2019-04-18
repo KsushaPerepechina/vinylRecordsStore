@@ -3,21 +3,17 @@ package com.vironit.vinylRecordsStore.entity;
 import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.Pattern;
-import org.hibernate.validator.constraints.NotEmpty;
 
 /**
- * Винокурня.
+ * Стиль.
  */
 @Entity
-@Table(name = "distillery")
+@Table(name = "style")
 public class Style implements Serializable {
     
     @Id
@@ -26,16 +22,8 @@ public class Style implements Serializable {
     private Long id;
 
     @Column(name = "title", nullable = false)
-    @NotEmpty
     @Pattern(regexp="^[^#$%^*()']*$")
     private String title;
-    
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "region_id", nullable = false)
-    private Region region;
-
-    @Column(name = "description")
-    private String description;
 
     /**
      * @return the id
@@ -63,34 +51,6 @@ public class Style implements Serializable {
      */
     public void setTitle(String title) {
         this.title = title;
-    }
-
-    /**
-     * @return the description
-     */
-    public String getDescription() {
-        return description;
-    }
-
-    /**
-     * @param description the description to set
-     */
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    /**
-     * @return the region
-     */
-    public Region getRegion() {
-        return region;
-    }
-
-    /**
-     * @param region the region to set
-     */
-    public void setRegion(Region region) {
-        this.region = region;
     }
 
 }

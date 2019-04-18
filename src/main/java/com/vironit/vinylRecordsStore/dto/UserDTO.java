@@ -2,7 +2,6 @@ package com.vironit.vinylRecordsStore.dto;
 
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
-import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.hateoas.ResourceSupport;
 
 /**
@@ -10,7 +9,6 @@ import org.springframework.hateoas.ResourceSupport;
  */
 public class UserDTO extends ResourceSupport {
 
-    @NotEmpty
     @Size(max = 50)
     @Pattern(regexp="^[\\w-]+(\\.[\\w-]+)*@([\\w-]+\\.)+[a-zA-Z]+$")
     private String email;
@@ -20,16 +18,13 @@ public class UserDTO extends ResourceSupport {
     private String password;
 
     @Size(max = 50)
-    @NotEmpty
     @Pattern(regexp="^[\\pL '-]+$")
     private String name;
 
-    @NotEmpty
     @Size(max = 20)
     @Pattern(regexp="^\\+[1-9][0-9]?[\\s]*\\(?\\d{3}\\)?[-\\s]?\\d{3}[-\\s]?\\d{2}[-\\s]?\\d{2}$")
     private String phone;
 
-    @NotEmpty
     @Size(max = 100)
     @Pattern(regexp="^[^#$%^*()']*$")
     private String address;

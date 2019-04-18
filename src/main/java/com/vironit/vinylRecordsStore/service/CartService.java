@@ -29,9 +29,7 @@ public interface CartService {
      * @throws UnknownProductException если запрошенный товар не существует
      */
     Cart updateCartObject(Cart cart, CartItemDTO item) throws UnknownProductException;
-    
-    //---------------------------------------- Операции с корзиной пользователя
-    
+
     /**
      * Получение корзины покупателя.
      * 

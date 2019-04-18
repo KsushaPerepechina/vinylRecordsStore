@@ -3,7 +3,7 @@ package com.vironit.vinylRecordsStore.dao;
 import java.util.Date;
 import java.util.List;
 
-import com.vironit.vinylRecordsStore.entity.Account;
+import com.vironit.vinylRecordsStore.entity.UserAccount;
 import com.vironit.vinylRecordsStore.entity.Order;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -15,7 +15,7 @@ import org.springframework.data.repository.CrudRepository;
  */
 public interface OrderDAO extends CrudRepository<Order, Long>, JpaRepository<Order, Long>
 {
-    List<Order> findByUserAccountOrderByDateCreatedDesc(Account account);
+    List<Order> findByUserAccountOrderByDateCreatedDesc(UserAccount userAccount);
 
     Page<Order> findByExecuted(boolean stored, Pageable pageable);
 

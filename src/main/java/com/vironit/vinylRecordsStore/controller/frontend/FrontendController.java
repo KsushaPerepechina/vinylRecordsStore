@@ -1,6 +1,6 @@
 package com.vironit.vinylRecordsStore.controller.frontend;
 
-import com.vironit.vinylRecordsStore.service.RegionService;
+import com.vironit.vinylRecordsStore.service.StyleService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -16,15 +16,15 @@ import org.springframework.ui.Model;
 public class FrontendController {
 
     @Autowired
-    private RegionService regionService;
+    private StyleService styleService;
 
     /**
      * Главная страница.
      */
     @RequestMapping(value = "/index", method = RequestMethod.GET)
     public String index(Model model) {
-        model.addAttribute("regions", regionService.findAllOrderByName());
-        model.addAttribute("selectedRegion", Region.NULL);
+        model.addAttribute("styles", styleService.findAllOrderByTitle());
+        model.addAttribute("selectedStyle", styleService.findOne(1));
         return "index";
     }
     

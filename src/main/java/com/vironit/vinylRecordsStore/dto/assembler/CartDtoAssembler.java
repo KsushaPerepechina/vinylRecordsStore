@@ -27,21 +27,21 @@ public class CartDtoAssembler extends ResourceAssemblerSupport<Cart, CartDTO> {
         return instantiateResource(cart);
     }
         
-    public CartDTO toUserResource(Cart cart, int deliveryСost) {
-        CartDTO dto = toAnonymousResource(cart, deliveryСost);
-        dto.setUser(cart.getAccount().getEmail());
+    public CartDTO toUserResource(Cart cart, double deliveryCost) {
+        CartDTO dto = toAnonymousResource(cart, deliveryCost);
+        dto.setUser(cart.getUserAccount().getEmail());
         dto.add(linkTo(ContactsRestController.class).withRel("Customer contacts"));
         dto.add(linkTo(CartRestController.class).slash("payment").withRel("Payment"));
         return dto;
     }
     
-    public CartDTO toAnonymousResource(Cart cart, int deliveryСost) {
-        int currentDeliveryCost = cart.isDeliveryIncluded() ? deliveryСost : 0;
-        int totalCost = cart.isEmpty() ? 0 : (cart.getProductsCost() + currentDeliveryCost);
+    public CartDTO toAnonymousResource(Cart cart, double deliveryCost) {
+        double currentDeliveryCost = cart.isDeliveryIncluded() ? deliveryCost : 0;
+        double totalCost = cart.isEmpty() ? 0 : (cart.getProductsCost() + currentDeliveryCost);
         
         CartDTO dto = toResource(cart);
         dto.setDeliveryIncluded(cart.isDeliveryIncluded());
-        dto.setDeliveryCost(deliveryСost);
+        dto.setDeliveryCost(deliveryCost);
         dto.setProductsCost(cart.getProductsCost());
         dto.setTotalCost(totalCost);
         dto.setTotalItems(cart.getTotalItems());

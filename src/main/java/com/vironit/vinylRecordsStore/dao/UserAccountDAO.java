@@ -1,13 +1,13 @@
 package com.vironit.vinylRecordsStore.dao;
 
-import com.vironit.vinylRecordsStore.entity.Account;
+import com.vironit.vinylRecordsStore.entity.UserAccount;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.CrudRepository;
 
 /**
  * ДАО аккаунта пользователя. 
  */
-public interface UserAccountDAO extends CrudRepository<Account, Long>, JpaRepository<Account, Long>
+public interface UserAccountDAO extends CrudRepository<UserAccount, Long>, JpaRepository<UserAccount, Long>
 {
-    Account findByEmail(String email);
+    UserAccount findByEmail(String email);
 }

@@ -11,10 +11,10 @@ public class CartDTO extends ResourceSupport {
     private String user;
     private List<CartItemDTO> items;
     private int totalItems;
-    private int productsCost;
-    private int deliveryCost;
+    private double productsCost;
+    private double deliveryCost;
     private boolean deliveryIncluded;
-    private int totalCost;
+    private double totalCost;
 
     public CartDTO() {
     }
@@ -43,27 +43,27 @@ public class CartDTO extends ResourceSupport {
         this.deliveryIncluded = deliveryIncluded;
     }
 
-    public int getProductsCost() {
+    public double getProductsCost() {
         return productsCost;
     }
 
-    public void setProductsCost(int productsCost) {
+    public void setProductsCost(double productsCost) {
         this.productsCost = productsCost;
     }
 
-    public int getTotalCost() {
+    public double getTotalCost() {
         return totalCost;
     }
 
-    public void setTotalCost(int totalCost) {
+    public void setTotalCost(double totalCost) {
         this.totalCost = totalCost;
     }
 
-    public int getDeliveryCost() {
+    public double getDeliveryCost() {
         return deliveryCost;
     }
 
-    public void setDeliveryCost(int deliveryCost) {
+    public void setDeliveryCost(double deliveryCost) {
         this.deliveryCost = deliveryCost;
     }
 

@@ -3,7 +3,7 @@ package com.vironit.vinylRecordsStore.service;
 import java.util.Date;
 import java.util.List;
 
-import com.vironit.vinylRecordsStore.entity.Account;
+import com.vironit.vinylRecordsStore.entity.UserAccount;
 import com.vironit.vinylRecordsStore.entity.Order;
 import com.vironit.vinylRecordsStore.dto.CreditCardDTO;
 import com.vironit.vinylRecordsStore.dto.OrderDTO;
@@ -28,7 +28,7 @@ public interface OrderService {
 
     Page<Order> findAll(PageRequest request);
 
-    List<Order> findByUserAccount(Account account);
+    List<Order> findByUserAccount(UserAccount userAccount);
 
     Page<Order> findByExecuted(boolean stored, Pageable pageable);
 
@@ -37,9 +37,7 @@ public interface OrderService {
     Page<Order> findByDateCreatedGreaterThan(Date created, Pageable pageable);
 
     Page<Order> fetchFilteredAndPaged(String executed, String created, PageRequest request);
-    
-    //---------------------------------------- Операции с заказами пользователя
-    
+
     /**
      * Оформление нового заказа.
      *

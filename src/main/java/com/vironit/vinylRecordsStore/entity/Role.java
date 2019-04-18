@@ -33,7 +33,7 @@ public class Role implements Serializable {
     private String title;
 
     @ManyToMany(mappedBy = "roles")
-    private Set<Account> users = new HashSet<>();
+    private Set<UserAccount> users = new HashSet<>();
 
     /**
      * @return the id
@@ -66,14 +66,14 @@ public class Role implements Serializable {
     /**
      * @return the users
      */
-    public Set<Account> getUsers() {
+    public Set<UserAccount> getUsers() {
         return users;
     }
 
     /**
      * @param users the users to set
      */
-    public void setUsers(Set<Account> users) {
+    public void setUsers(Set<UserAccount> users) {
         this.users = users;
     }
 

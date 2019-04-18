@@ -19,7 +19,7 @@
     <tx:annotation-driven transaction-manager="transactionManager" />
     
     <!-- Репозитории Spring Data JPA -->
-    <jpa:repositories base-package="market.dao" />
+    <jpa:repositories base-package="com.vironit.vinylRecordsStore.dao" />
     
     <!-- Параметры доступа к БД -->
     <context:property-placeholder location="/WEB-INF/conf/db-jelastic.properties" order="10" />
@@ -36,7 +36,7 @@
     <bean id="entityManagerFactory"
           class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
         <property name="dataSource" ref="dataSource" />
-        <property name="packagesToScan" value="market.domain" />
+        <property name="packagesToScan" value="com.vironit.vinylRecordsStore.entity" />
         <property name="jpaVendorAdapter">
             <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter" />
         </property>

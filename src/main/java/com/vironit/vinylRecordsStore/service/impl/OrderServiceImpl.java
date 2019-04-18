@@ -1,5 +1,6 @@
 package com.vironit.vinylRecordsStore.service.impl;
 
+import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashSet;
@@ -15,7 +16,7 @@ import com.vironit.vinylRecordsStore.entity.*;
 import com.vironit.vinylRecordsStore.service.CartService;
 import com.vironit.vinylRecordsStore.service.OrderService;
 import com.vironit.vinylRecordsStore.dao.UserAccountDAO;
-import com.vironit.vinylRecordsStore.entity.Account;
+import com.vironit.vinylRecordsStore.entity.UserAccount;
 import com.vironit.vinylRecordsStore.exception.EmptyCartException;
 import com.vironit.vinylRecordsStore.exception.OrderNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,7 +60,7 @@ public class OrderServiceImpl implements OrderService {
     @Transactional(readOnly = true)
     @Override
     public Order findOne(long orderId) {
-        return orderDAO.findOne(orderId);
+        return orderDAO.findById(orderId).get();
     }
 
     @Transactional(readOnly = true)
@@ -76,8 +77,8 @@ public class OrderServiceImpl implements OrderService {
 
     @Transactional(readOnly = true)
     @Override
-    public List<Order> findByUserAccount(Account account) {
-        return orderDAO.findByUserAccountOrderByDateCreatedDesc(account);
+    public List<Order> findByUserAccount(UserAccount userAccount) {
+        return orderDAO.findByUserAccountOrderByDateCreatedDesc(userAccount);
     }
 
     @Transactional(readOnly = true)
@@ -97,8 +98,6 @@ public class OrderServiceImpl implements OrderService {
     public Page<Order> findByDateCreatedGreaterThan(Date created, Pageable pageable) {
         return orderDAO.findByDateCreatedGreaterThan(created, pageable);
     }
-    
-    //---------------------------------------- Операции с заказами пользователя
     
     @Transactional(readOnly = true)
     @Override
@@ -150,14 +149,14 @@ public class OrderServiceImpl implements OrderService {
         Order order = new Order();
         if (cart.isDeliveryIncluded()) {
             order.setDeliveryIncluded(true);
-            order.setDeliveryСost(deliveryCost);
+            order.setDeliveryCost(deliveryCost);
         } else {
             order.setDeliveryIncluded(false);
-            order.setDeliveryСost(0);
+            order.setDeliveryCost(0);
         }
-        order.setAccount(userAccountDAO.findByEmail(userLogin));
+        order.setUserAccount(userAccountDAO.findByEmail(userLogin));
         order.setProductsCost(cart.getProductsCost());
-        order.setDateCreated(new Date());
+        order.setDateCreated(LocalDate.now());
         order.setExecuted(false);
         return order;
     }
@@ -166,9 +165,9 @@ public class OrderServiceImpl implements OrderService {
         Bill bill = new Bill();
         bill.setOrder(order);
         bill.setNumber(new Random().nextInt(999999999));
-        bill.setTotalCost(order.getProductsCost() + order.getDeliveryСost());
+        bill.setTotalCost(order.getProductsCost() + order.getDeliveryCost());
         bill.setPayed(true);
-        bill.setDateCreated(new Date());
+        bill.setDateCreated(LocalDate.now());
         bill.setCcNumber(card.getNumber());
         return bill;
     }
@@ -189,8 +188,8 @@ public class OrderServiceImpl implements OrderService {
     @Transactional(readOnly = true)
     @Override
     public List<OrderDTO> getUserOrders(String userLogin) {
-        Account account = userAccountDAO.findByEmail(userLogin);
-        List<Order> orders = findByUserAccount(account);
+        UserAccount userAccount = userAccountDAO.findByEmail(userLogin);
+        List<Order> orders = findByUserAccount(userAccount);
         return orderDtoAssembler.toResources(orders);
     }
 
@@ -198,7 +197,7 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public OrderDTO getUserOrder(String userLogin, long id) throws OrderNotFoundException {
         Order order = findOne(id);
-        if ((order == null) || !order.getAccount().getEmail().equals(userLogin)) {
+        if ((order == null) || !order.getUserAccount().getEmail().equals(userLogin)) {
             throw new OrderNotFoundException("У пользователя " + userLogin + " не существует заказа с id " + id);
         }
         return orderDtoAssembler.toResource(order);

@@ -2,7 +2,7 @@ package com.vironit.vinylRecordsStore.service;
 
 import java.util.List;
 
-import com.vironit.vinylRecordsStore.entity.Account;
+import com.vironit.vinylRecordsStore.entity.UserAccount;
 import com.vironit.vinylRecordsStore.dto.UserDTO;
 import com.vironit.vinylRecordsStore.exception.EmailExistsException;
 
@@ -11,17 +11,15 @@ import com.vironit.vinylRecordsStore.exception.EmailExistsException;
  */
 public interface UserAccountService {
 
-    void save(Account account);
+    void save(UserAccount userAccount);
     
-    void delete(Account account);
+    void delete(UserAccount userAccount);
 
-    Account findOne(long accountId);
+    UserAccount findOne(long accountId);
 
-    List<Account> findAll();
+    List<UserAccount> findAll();
 
-    Account findByEmail(String email);
-    
-    //--------------------------------------- Операции с аккаунтом пользователя
+    UserAccount findByEmail(String email);
 
     /**
      * Создание нового аккаунта с последующей авторизацией.
@@ -30,7 +28,7 @@ public interface UserAccountService {
      * @return вновь созданный аккаунт
      * @throws EmailExistsException если пользователь с таким адресом уже существует
      */
-    Account createUserThenAuthenticate(UserDTO user) throws EmailExistsException;
+    UserAccount createUserThenAuthenticate(UserDTO user) throws EmailExistsException;
     
     /**
      * Получение аккаунта пользователя.
@@ -38,5 +36,5 @@ public interface UserAccountService {
      * @param userLogin логин пользователя
      * @return аккаунт пользователя с запрошенным логином
      */
-    Account getUserAccount(String userLogin);
+    UserAccount getUserAccount(String userLogin);
 }

@@ -22,12 +22,12 @@ public class Contacts implements Serializable {
     @Column(name = "id", unique = true, nullable = false)
     @GeneratedValue(generator = "gen")
     @GenericGenerator(name = "gen", strategy = "foreign",
-            parameters = @Parameter(name = "property", value = "account"))
+            parameters = @Parameter(name = "property", value = "userAccount"))
     private Long id;
 
     @OneToOne
     @PrimaryKeyJoinColumn
-    private Account account;
+    private UserAccount userAccount;
 
     @Column(name = "phone", nullable = false)
     private String phone;
@@ -41,8 +41,8 @@ public class Contacts implements Serializable {
     public Contacts() {
     }
 
-    public Contacts(Account account, String phone, String address/*, String cityAndRegion*/) {
-        this.account = account;
+    public Contacts(UserAccount userAccount, String phone, String address/*, String cityAndRegion*/) {
+        this.userAccount = userAccount;
         this.phone = phone;
         this.address = address;
         this.cityAndRegion = "13";
@@ -63,17 +63,17 @@ public class Contacts implements Serializable {
     }
 
     /**
-     * @return the account
+     * @return the userAccount
      */
-    public Account getAccount() {
-        return account;
+    public UserAccount getUserAccount() {
+        return userAccount;
     }
 
     /**
-     * @param account the account to set
+     * @param userAccount the userAccount to set
      */
-    public void setAccount(Account account) {
-        this.account = account;
+    public void setUserAccount(UserAccount userAccount) {
+        this.userAccount = userAccount;
     }
 
     /**

@@ -20,13 +20,13 @@ public class ProductDtoAssembler extends ResourceAssemblerSupport<Product, Produ
     public ProductDTO toResource(Product product) {
         ProductDTO dto = createResourceWithId(product.getId(), product);
         dto.setProductId(product.getId());
-        dto.setDistillery(product.getStyle().getTitle());
-        dto.setName(product.getName());
-        dto.setAge(product.getAge());
-        dto.setAlcohol(product.getAlcohol());
+        dto.setStyle(product.getStyle().getTitle());
+        dto.setArtist(product.getArtist());
+        dto.setAlbum(product.getAlbum());
+        dto.setCountry(product.getCountry());
+        dto.setYear(product.getYear());
         dto.setPrice(product.getPrice());
         dto.setVolume(product.getVolume());
-        dto.setDescription(product.getDescription());
         dto.setInStock(product.getStorage().isAvailable());
         dto.add(linkTo(CartRestController.class).withRel("Cart"));
         return dto;

@@ -4,7 +4,7 @@ import javax.validation.Valid;
 
 import com.vironit.vinylRecordsStore.dto.UserDTO;
 import com.vironit.vinylRecordsStore.dto.assembler.UserAccountDtoAssembler;
-import com.vironit.vinylRecordsStore.entity.Account;
+import com.vironit.vinylRecordsStore.entity.UserAccount;
 import com.vironit.vinylRecordsStore.exception.EmailExistsException;
 import com.vironit.vinylRecordsStore.service.UserAccountService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,7 +40,7 @@ public class SignupRestController {
             produces = MediaUtf8.APPLICATION_JSON_UTF8_VALUE)
     @ResponseBody
     public UserDTO postNewUser(@Valid @RequestBody UserDTO user) throws EmailExistsException {
-        Account account = userAccountService.createUserThenAuthenticate(user);
-        return userAccountDtoAssembler.toResource(account);
+        UserAccount userAccount = userAccountService.createUserThenAuthenticate(user);
+        return userAccountDtoAssembler.toResource(userAccount);
     }
 }

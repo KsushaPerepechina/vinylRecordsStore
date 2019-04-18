@@ -1,6 +1,6 @@
 package com.vironit.vinylRecordsStore.controller.frontend;
 
-import com.vironit.vinylRecordsStore.entity.Account;
+import com.vironit.vinylRecordsStore.entity.UserAccount;
 import com.vironit.vinylRecordsStore.entity.Cart;
 import com.vironit.vinylRecordsStore.entity.Order;
 import com.vironit.vinylRecordsStore.entity.OrderItem;
@@ -51,8 +51,8 @@ public class CustomerController {
     @RequestMapping(value = "/orders", method = RequestMethod.GET)
     public String orders(Model model) {
         String userLogin = SecurityContextHolder.getContext().getAuthentication().getName();
-        Account account = userAccountService.findByEmail(userLogin);
-        List<Order> userOrders = orderService.findByUserAccount(account);
+        UserAccount userAccount = userAccountService.findByEmail(userLogin);
+        List<Order> userOrders = orderService.findByUserAccount(userAccount);
 
         Map<Long, List<OrderItem>> orderedProductsMap = new HashMap<>();
         for (Order order : userOrders) {

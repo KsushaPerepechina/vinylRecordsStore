@@ -1,6 +1,7 @@
 package com.vironit.vinylRecordsStore.entity;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -33,7 +34,7 @@ public class Order implements Serializable {
     
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_account_id")
-    private Account account;
+    private UserAccount userAccount;
     
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER,
             targetEntity = OrderItem.class, mappedBy = "order")
@@ -46,14 +47,14 @@ public class Order implements Serializable {
     private Bill bill;
     
     @Column(name = "products_cost", nullable = false)
-    private int productsCost;
+    private double productsCost;
     
     @Column(name = "date_created", nullable = false)
     @Temporal(TIMESTAMP)
-    private Date dateCreated;
+    private LocalDate dateCreated;
     
     @Column(name = "delivery_cost")
-    private int deliveryСost;
+    private double deliveryCost;
     
     @Column(name = "delivery_included", nullable = false)
     private boolean deliveryIncluded;
@@ -81,43 +82,43 @@ public class Order implements Serializable {
     /**
      * @return the amount
      */
-    public int getProductsCost() {
+    public double getProductsCost() {
         return productsCost;
     }
 
     /**
      * @param amount the amount to set
      */
-    public void setProductsCost(int amount) {
+    public void setProductsCost(double amount) {
         this.productsCost = amount;
     }
 
     /**
      * @return the name
      */
-    public Date getDateCreated() {
+    public LocalDate getDateCreated() {
         return dateCreated;
     }
 
     /**
      * @param name the name to set
      */
-    public void setDateCreated(Date name) {
+    public void setDateCreated(LocalDate name) {
         this.dateCreated = name;
     }
 
     /**
-     * @return the account
+     * @return the userAccount
      */
-    public Account getAccount() {
-        return account;
+    public UserAccount getUserAccount() {
+        return userAccount;
     }
 
     /**
-     * @param account the account to set
+     * @param userAccount the userAccount to set
      */
-    public void setAccount(Account account) {
-        this.account = account;
+    public void setUserAccount(UserAccount userAccount) {
+        this.userAccount = userAccount;
     }
 
     /**
@@ -137,15 +138,15 @@ public class Order implements Serializable {
     /**
      * @return the deliveryСost
      */
-    public int getDeliveryСost() {
-        return deliveryСost;
+    public double getDeliveryCost() {
+        return deliveryCost;
     }
 
     /**
-     * @param deliveryСost the deliveryСost to set
+     * @param deliveryCost the deliveryCost to set
      */
-    public void setDeliveryСost(int deliveryСost) {
-        this.deliveryСost = deliveryСost;
+    public void setDeliveryCost(double deliveryCost) {
+        this.deliveryCost = deliveryCost;
     }
 
     /**

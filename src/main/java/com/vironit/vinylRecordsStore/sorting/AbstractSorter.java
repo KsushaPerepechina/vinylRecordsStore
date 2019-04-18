@@ -70,7 +70,7 @@ public abstract class AbstractSorter<T> implements ISorter<T> {
         return new PageRequest(
                 getPageNumber() - 1,
                 getPageSize(),
-                Sort.Direction.fromStringOrNull(getSortDirection()),
+                Sort.Direction.fromString(getSortDirection()),
                 getSortBy());
     }
     

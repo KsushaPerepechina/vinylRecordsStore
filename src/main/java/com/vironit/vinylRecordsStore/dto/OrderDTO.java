@@ -1,5 +1,6 @@
 package com.vironit.vinylRecordsStore.dto;
 
+import java.time.LocalDate;
 import java.util.Date;
 import org.springframework.hateoas.ResourceSupport;
 
@@ -11,11 +12,11 @@ public class OrderDTO extends ResourceSupport {
     private String user;
     private long orderId;
     private int billNumber;
-    private Date dateCreated;
-    private int productsCost;
-    private int deliveryCost;
+    private LocalDate dateCreated;
+    private double productsCost;
+    private double deliveryCost;
     private boolean deliveryIncluded;
-    private int totalCost;
+    private double totalCost;
     private boolean payed;
     private boolean executed;
     
@@ -38,35 +39,35 @@ public class OrderDTO extends ResourceSupport {
         this.billNumber = billNumber;
     }
 
-    public int getProductsCost() {
+    public double getProductsCost() {
         return productsCost;
     }
 
-    public void setProductsCost(int productsCost) {
+    public void setProductsCost(double productsCost) {
         this.productsCost = productsCost;
     }
 
-    public Date getDateCreated() {
+    public LocalDate getDateCreated() {
         return dateCreated;
     }
 
-    public void setDateCreated(Date dateCreated) {
+    public void setDateCreated(LocalDate dateCreated) {
         this.dateCreated = dateCreated;
     }
 
-    public int getDeliveryCost() {
+    public double getDeliveryCost() {
         return deliveryCost;
     }
 
-    public void setDeliveryCost(int deliveryCost) {
+    public void setDeliveryCost(double deliveryCost) {
         this.deliveryCost = deliveryCost;
     }
 
-    public int getTotalCost() {
+    public double getTotalCost() {
         return totalCost;
     }
 
-    public void setTotalCost(int totalCost) {
+    public void setTotalCost(double totalCost) {
         this.totalCost = totalCost;
     }
 

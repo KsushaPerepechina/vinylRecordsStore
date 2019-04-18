@@ -24,9 +24,8 @@ public interface ProductService {
     
     Page<Product> findAll(PageRequest request);
     
-    List<Product> findByDistillery(Style style);
+    List<Product> findByStyle(Style style);
     
-    Page<Product> findByDistillery(Style style, Pageable pageable);
-    
-    Page<Product> findByDistilleriesOfRegion(Region region, Pageable pageable);
+    Page<Product> findByStyle(Style style, Pageable pageable);
+
 }

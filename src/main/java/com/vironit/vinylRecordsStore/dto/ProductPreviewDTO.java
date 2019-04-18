@@ -8,9 +8,10 @@ import org.springframework.hateoas.ResourceSupport;
 public class ProductPreviewDTO extends ResourceSupport {
     
     private long productId;
-    private String distillery;
-    private String name;
-    private Integer price;
+    private String style;
+    private String artist;
+    private String album;
+    private Double price;
 
     public ProductPreviewDTO() {
     }
@@ -23,27 +24,35 @@ public class ProductPreviewDTO extends ResourceSupport {
         this.productId = productId;
     }
 
-    public String getDistillery() {
-        return distillery;
+    public String getStyle() {
+        return style;
     }
 
-    public void setDistillery(String distillery) {
-        this.distillery = distillery;
+    public void setStyle(String style) {
+        this.style = style;
     }
 
-    public String getName() {
-        return name;
+    public String getArtist() {
+        return artist;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setArtist(String artist) {
+        this.artist = artist;
     }
 
-    public Integer getPrice() {
+    public String getAlbum() {
+        return album;
+    }
+
+    public void setAlbum(String album) {
+        this.album = album;
+    }
+
+    public Double getPrice() {
         return price;
     }
 
-    public void setPrice(Integer price) {
+    public void setPrice(Double price) {
         this.price = price;
     }
 }

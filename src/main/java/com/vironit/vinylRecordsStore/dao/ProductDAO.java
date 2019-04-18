@@ -16,11 +16,8 @@ import org.springframework.data.repository.query.Param;
  */
 public interface ProductDAO extends CrudRepository<Product, Long>, JpaRepository<Product, Long>
 {
-    List<Product> findByDistillery(Style style);
+    List<Product> findByStyle(Style style);
     
-    Page<Product> findByDistillery(Style style, Pageable pageable);
-    
-    @Query(value = "SELECT p FROM Product p WHERE p.distillery IN "
-            + "(SELECT d FROM Distillery d WHERE d.region = :region)")
-    public Page<Product> findByDistilleriesOfRegion(@Param("region") Region region, Pageable pageable);
+    Page<Product> findByStyle(Style style, Pageable pageable);
+
 }

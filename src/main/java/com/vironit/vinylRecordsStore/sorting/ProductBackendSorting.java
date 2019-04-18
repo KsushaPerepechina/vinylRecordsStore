@@ -10,8 +10,8 @@ public class ProductBackendSorting extends AbstractSorter {
 
     {
         sortFieldOptions.put("price", "по цене");
-        sortFieldOptions.put("distillery.title", "по винокурне");
-        sortFieldOptions.put("age", "по возрасту");
+        sortFieldOptions.put("style.title", "по стилю");
+        sortFieldOptions.put("year", "по году");
     }
     
     @Override

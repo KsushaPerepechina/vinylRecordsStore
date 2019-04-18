@@ -13,19 +13,17 @@
 
     <mvc:annotation-driven />
 
-    <context:component-scan base-package="market.controller.frontend" />
-    <context:component-scan base-package="market.controller.backend" />
-    <context:component-scan base-package="market.sorting" />
-    <context:component-scan base-package="market.rest" />
-    <context:component-scan base-package="market.exception" />
-    <context:component-scan base-package="market.service.impl" />
-    <context:component-scan base-package="market.dto.assembler" />
+    <context:component-scan base-package="com.vironit.vinylRecordsStore.controller.frontend" />
+    <context:component-scan base-package="com.vironit.vinylRecordsStore.controller.backend" />
+    <context:component-scan base-package="com.vironit.vinylRecordsStore.sorting" />
+    <context:component-scan base-package="com.vironit.vinylRecordsStore.rest" />
+    <context:component-scan base-package="com.vironit.vinylRecordsStore.exception" />
+    <context:component-scan base-package="com.vironit.vinylRecordsStore.service.impl" />
+    <context:component-scan base-package="com.vironit.vinylRecordsStore.dto.assembler" />
  
     <!-- Исходные значения параметров магазина -->
     <context:property-placeholder location = "/WEB-INF/conf/market.properties" order="0" ignore-unresolvable="true" />
-    
-    <!-- Путь к веб-ресурсам -->
-    <mvc:resources mapping="/resources/**" location="/resources/" />
+
     
     <!-- Сообщения об ошибках при валидации форм -->
     <bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">

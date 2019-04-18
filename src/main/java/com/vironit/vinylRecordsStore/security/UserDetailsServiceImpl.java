@@ -1,6 +1,6 @@
 package com.vironit.vinylRecordsStore.security;
 
-import com.vironit.vinylRecordsStore.entity.Account;
+import com.vironit.vinylRecordsStore.entity.UserAccount;
 import com.vironit.vinylRecordsStore.service.UserAccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -26,7 +26,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     public UserDetails loadUserByUsername(String login)
             throws UsernameNotFoundException, DataAccessException
     {
-        Account userEntity = userAccountService.findByEmail(login);
+        UserAccount userEntity = userAccountService.findByEmail(login);
         if (userEntity == null) {
             throw new UsernameNotFoundException("user not found");
         }

@@ -3,7 +3,7 @@ package com.vironit.vinylRecordsStore.service.impl;
 import java.util.List;
 
 import com.vironit.vinylRecordsStore.dao.ContactsDAO;
-import com.vironit.vinylRecordsStore.entity.Account;
+import com.vironit.vinylRecordsStore.entity.UserAccount;
 import com.vironit.vinylRecordsStore.entity.Contacts;
 import com.vironit.vinylRecordsStore.dto.ContactsDTO;
 import com.vironit.vinylRecordsStore.dto.assembler.ContactsDtoAssembler;
@@ -43,7 +43,7 @@ public class ContactsServiceImpl implements ContactsService {
     @Transactional(readOnly = true)
     @Override
     public Contacts findOne(long contactsId) {
-        return contactsDAO.findOne(contactsId);
+        return contactsDAO.findById(contactsId).get();
     }
 
     @Transactional(readOnly = true)
@@ -52,21 +52,19 @@ public class ContactsServiceImpl implements ContactsService {
         return contactsDAO.findAll();
     }
     
-    //-------------------------------------- Операции с контактами пользователя
-    
     @Transactional(readOnly = true)
     @Override
     public ContactsDTO getUserContacts(String userLogin) {
-        Account account = userAccountDAO.findByEmail(userLogin);
-        Contacts contacts = account.getContacts();
+        UserAccount userAccount = userAccountDAO.findByEmail(userLogin);
+        Contacts contacts = userAccount.getContacts();
         return contactsDtoAssembler.toResource(contacts);
     }
     
     @Transactional
     @Override
     public ContactsDTO updateUserContacts(String userLogin, ContactsDTO newContacts) {
-        Account account = userAccountDAO.findByEmail(userLogin);
-        Contacts contacts = account.getContacts();
+        UserAccount userAccount = userAccountDAO.findByEmail(userLogin);
+        Contacts contacts = userAccount.getContacts();
         contacts.setPhone(newContacts.getPhone());
         contacts.setAddress(newContacts.getAddress());
         Contacts savedContacts = save(contacts);

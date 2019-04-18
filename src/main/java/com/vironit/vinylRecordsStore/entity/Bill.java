@@ -1,7 +1,7 @@
 package com.vironit.vinylRecordsStore.entity;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDate;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -14,7 +14,6 @@ import static javax.persistence.TemporalType.TIMESTAMP;
 import javax.validation.constraints.Pattern;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
-import org.hibernate.validator.constraints.NotEmpty;
 
 /**
  * Счёт для оплаты заказа.
@@ -37,19 +36,18 @@ public class Bill implements Serializable {
     private int number;
     
     @Column(name = "total_cost", nullable = false)
-    private int totalCost;
+    private double totalCost;
     
     @Column(name = "payed", nullable = false)
     private boolean payed = false;
     
     @Column(name = "cc_number", nullable = false)
-    @NotEmpty
     @Pattern(regexp="\\b(?:\\d[ -]*?){13,16}\\b")
     private String ccNumber;
     
     @Column(name = "date_created", nullable = false)
     @Temporal(TIMESTAMP)
-    private Date dateCreated;
+    private LocalDate dateCreated;
     
     public Bill() {
     }
@@ -118,28 +116,28 @@ public class Bill implements Serializable {
     /**
      * @return the dateCreated
      */
-    public Date getDateCreated() {
+    public LocalDate getDateCreated() {
         return dateCreated;
     }
 
     /**
      * @param dateCreated the dateCreated to set
      */
-    public void setDateCreated(Date dateCreated) {
+    public void setDateCreated(LocalDate dateCreated) {
         this.dateCreated = dateCreated;
     }
 
     /**
      * @return the totalCost
      */
-    public int getTotalCost() {
+    public double getTotalCost() {
         return totalCost;
     }
 
     /**
      * @param totalCost the totalCost to set
      */
-    public void setTotalCost(int totalCost) {
+    public void setTotalCost(double totalCost) {
         this.totalCost = totalCost;
     }
 

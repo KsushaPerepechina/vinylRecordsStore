@@ -7,7 +7,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.vironit.vinylRecordsStore.entity.Account;
+import com.vironit.vinylRecordsStore.entity.UserAccount;
 import com.vironit.vinylRecordsStore.service.UserAccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -35,8 +35,8 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
     ) throws IOException, ServletException {
         Set<String> roles = AuthorityUtils.authorityListToSet(a.getAuthorities());
         if (roles.contains("ROLE_USER")) {
-            Account account = userAccountService.findByEmail(a.getName());
-            request.getSession().setAttribute("cart", account.getCart());
+            UserAccount userAccount = userAccountService.findByEmail(a.getName());
+            request.getSession().setAttribute("cart", userAccount.getCart());
         }
         if (roles.contains("ROLE_ADMIN") || roles.contains("ROLE_STAFF")) {
             response.sendRedirect(servletContext.getContextPath() + "/admin/");

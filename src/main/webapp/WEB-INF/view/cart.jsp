@@ -78,21 +78,21 @@
                 <c:set var="product" value="${cartItem.product}"/>
                 <tr>
                     <td>
-                        <img src="${pageContext.request.contextPath}${initParam.productImagePath}${product.style.title}/${product.name}.jpg"
-                             alt="${product.style.title} ${product.name}"
+                        <img src="${pageContext.request.contextPath}${initParam.productImagePath}${product.style.title}/${product.artist}.jpg"
+                             alt="${product.style.title} ${product.artist}"
                              width="100">
                     </td>
                     <td>
-                        ${product.style.title} ${product.name}
+                        ${product.style.title} ${product.artist}
                     </td>
                     <td>
                         ${product.price}&nbsp;руб.
                     </td>
                     <td width="125">
                         <sf:form method="put" modelAttribute="cartItem" commandName="cartItem">
-                            <input type="hidden" name="productId" value="${product.id}">
+                            <input type="hidden" artist="productId" value="${product.id}">
                             <div class="input-group input-group-sm">
-                                <input type="text" name="quantity" class="form-control"
+                                <input type="text" artist="quantity" class="form-control"
                                        value="${cartItem.quantity}"
                                        maxlength="2" size="1">
                                 <span class="input-group-btn">
@@ -140,7 +140,7 @@
                             <div class="col-sm-8">
                                 <div class="radio">
                                     <label for="deliveryIncludedTrue">
-                                        <input type="radio" name="included" value="true"
+                                        <input type="radio" artist="included" value="true"
                                             <c:if test="${cart.deliveryIncluded}">
                                                 checked="checked"
                                             </c:if>>
@@ -149,7 +149,7 @@
                                 </div>
                                 <div class="radio">
                                     <label for="deliveryIncludedFalse">
-                                        <input type="radio" name="included" value="false"
+                                        <input type="radio" artist="included" value="false"
                                             <c:if test="${! cart.deliveryIncluded}">
                                                 checked="checked"
                                             </c:if>>
@@ -213,7 +213,7 @@
 
 <script src="${pageContext.request.contextPath}/resources/js/form2json.js" type="text/javascript"></script>
 <script>
-    $('body').delegate('input[name=included]:checked', 'change', function() {
+    $('body').delegate('input[artist=included]:checked', 'change', function() {
         var $this = $(this);
         var form = $this.parents('form:first');
         var valueToSet = $(this).val();

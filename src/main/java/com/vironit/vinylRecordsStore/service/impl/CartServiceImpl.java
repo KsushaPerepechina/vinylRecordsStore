@@ -2,7 +2,7 @@ package com.vironit.vinylRecordsStore.service.impl;
 
 import java.util.List;
 
-import com.vironit.vinylRecordsStore.entity.Account;
+import com.vironit.vinylRecordsStore.entity.UserAccount;
 import com.vironit.vinylRecordsStore.entity.Cart;
 import com.vironit.vinylRecordsStore.entity.CartItem;
 import com.vironit.vinylRecordsStore.entity.Product;
@@ -48,7 +48,7 @@ public class CartServiceImpl implements CartService {
     @Transactional
     @Override
     public Cart findOne(long cartId) {
-        return cartDAO.findOne(cartId);
+        return cartDAO.findById(cartId).get();
     }
 
     @Transactional(readOnly = true)
@@ -60,7 +60,7 @@ public class CartServiceImpl implements CartService {
     @Transactional
     @Override
     public Cart updateCartObject(Cart cart, CartItemDTO item) throws UnknownProductException {
-        Product product = productDAO.findOne(item.getProductId());
+        Product product = productDAO.findById(item.getProductId()).get();
         if (product == null) {
             throw new UnknownProductException();
         }
@@ -69,14 +69,12 @@ public class CartServiceImpl implements CartService {
         }
         return cart;
     }
-
-    //---------------------------------------- Операции с корзиной пользователя
     
     @Transactional
     @Override
     public Cart getUserCart(String userLogin) {
-        Account account = userAccountDAO.findByEmail(userLogin);
-        return findOne(account.getId());
+        UserAccount userAccount = userAccountDAO.findByEmail(userLogin);
+        return findOne(userAccount.getId());
     }
     
     @Transactional

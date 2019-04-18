@@ -18,8 +18,9 @@ public class ProductPreviewAssembler extends ResourceAssemblerSupport<Product, P
     public ProductPreviewDTO toResource(Product product) {
         ProductPreviewDTO dto = createResourceWithId(product.getId(), product);
         dto.setProductId(product.getId());
-        dto.setDistillery(product.getStyle().getTitle());
-        dto.setName(product.getName());
+        dto.setStyle(product.getStyle().getTitle());
+        dto.setArtist(product.getArtist());
+        dto.setAlbum(product.getAlbum());
         dto.setPrice(product.getPrice());
         return dto;
     }

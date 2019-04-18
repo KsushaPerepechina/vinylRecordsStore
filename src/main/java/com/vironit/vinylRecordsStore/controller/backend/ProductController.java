@@ -6,7 +6,7 @@ import com.vironit.vinylRecordsStore.entity.Style;
 import com.vironit.vinylRecordsStore.entity.Product;
 import com.vironit.vinylRecordsStore.entity.Storage;
 import com.vironit.vinylRecordsStore.exception.ProductNotFoundException;
-import com.vironit.vinylRecordsStore.service.DistilleryService;
+import com.vironit.vinylRecordsStore.service.StyleService;
 import com.vironit.vinylRecordsStore.service.ProductService;
 import com.vironit.vinylRecordsStore.sorting.ISorter;
 import com.vironit.vinylRecordsStore.sorting.SortingValuesDTO;
@@ -34,7 +34,7 @@ public class ProductController {
     private ProductService productService;
     
     @Autowired
-    private DistilleryService distilleryService;
+    private StyleService styleService;
     
     @Autowired
     private ISorter<Product> productBackendSorting;
@@ -45,21 +45,21 @@ public class ProductController {
     @RequestMapping(method = RequestMethod.GET)
     public String getProducts(
             SortingValuesDTO sortingValues,
-            @RequestParam(value = "dist", required = false, defaultValue = "0") Long distilleryId,
+            @RequestParam(value = "dist", required = false, defaultValue = "0") Long styleId,
             Model model
     ) {
         PageRequest request = productBackendSorting.updateSorting(sortingValues);
         Page<Product> pagedList;
-        if (distilleryId == 0) {
+        if (styleId == 0) {
             pagedList = productService.findAll(request);
         } else {
-            Style style = distilleryService.findOne(distilleryId);
-            pagedList = productService.findByDistillery(style, request);
-            model.addAttribute("currentDistilleryTitle", style.getTitle());
+            Style style = styleService.findOne(styleId);
+            pagedList = productService.findByStyle(style, request);
+            model.addAttribute("currentStyleTitle", style.getTitle());
         }
         productBackendSorting.prepareModel(model, pagedList);
         
-        model.addAttribute("distilleries", distilleryService.findAllOrderByTitle());
+        model.addAttribute("styles", styleService.findAllOrderByTitle());
         return "admin/products";
     }
 
@@ -71,7 +71,7 @@ public class ProductController {
     @RequestMapping(method = RequestMethod.GET, value = "/new")
     public String newProduct(Model model) {
         model.addAttribute("product", new Product());
-        model.addAttribute("distilleries", distilleryService.findAllOrderByTitle());
+        model.addAttribute("styles", styleService.findAllOrderByTitle());
         return "admin/products/new";
     }
 
@@ -86,7 +86,7 @@ public class ProductController {
         if (bindingResult.hasErrors()) {
             return "admin/products/new";
         }
-        Style style = distilleryService.findOne(product.getStyle().getId());
+        Style style = styleService.findOne(product.getStyle().getId());
         product.setStyle(style);
 
         Storage available = new Storage(product);
@@ -107,7 +107,7 @@ public class ProductController {
             Model model
     ) throws ProductNotFoundException {
         model.addAttribute("product", productService.findOne(productId));
-        model.addAttribute("distilleries", distilleryService.findAllOrderByTitle());
+        model.addAttribute("styles", styleService.findAllOrderByTitle());
         return "admin/products/edit";
     }
 
@@ -123,7 +123,7 @@ public class ProductController {
         if (bindingResult.hasErrors()) {
             return "admin/products/edit";
         }
-        Style style = distilleryService.findOne(product.getStyle().getId());
+        Style style = styleService.findOne(product.getStyle().getId());
         product.setStyle(style);
         productService.save(product);//!
         return "redirect:/admin/products";

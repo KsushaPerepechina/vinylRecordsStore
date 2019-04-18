@@ -43,7 +43,7 @@ public class ProductServiceImpl implements ProductService {
     @Transactional(readOnly = true)
     @Override
     public Product findOne(long productId) throws ProductNotFoundException {
-        Product product = productDAO.findOne(productId);
+        Product product = productDAO.findById(productId).get();
         if (product == null) {
             throw new ProductNotFoundException();
         }
@@ -64,19 +64,14 @@ public class ProductServiceImpl implements ProductService {
     
     @Transactional(readOnly = true)
     @Override
-    public List<Product> findByDistillery(Style style) {
-        return productDAO.findByDistillery(style);
+    public List<Product> findByStyle(Style style) {
+        return productDAO.findByStyle(style);
     }
     
     @Transactional(readOnly = true)
     @Override
-    public Page<Product> findByDistillery(Style style, Pageable pageable) {
-        return productDAO.findByDistillery(style, pageable);
+    public Page<Product> findByStyle(Style style, Pageable pageable) {
+        return productDAO.findByStyle(style, pageable);
     }
-    
-    @Transactional(readOnly = true)
-    @Override
-    public Page<Product> findByDistilleriesOfRegion(Region region, Pageable pageable) {
-        return productDAO.findByDistilleriesOfRegion(region, pageable);
-    }
+
 }

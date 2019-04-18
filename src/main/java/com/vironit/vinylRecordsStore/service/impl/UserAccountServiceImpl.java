@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.vironit.vinylRecordsStore.entity.Cart;
 import com.vironit.vinylRecordsStore.entity.Contacts;
-import com.vironit.vinylRecordsStore.entity.Account;
+import com.vironit.vinylRecordsStore.entity.UserAccount;
 import com.vironit.vinylRecordsStore.dto.UserDTO;
 import com.vironit.vinylRecordsStore.service.UserAccountService;
 import com.vironit.vinylRecordsStore.dao.UserAccountDAO;
@@ -35,62 +35,60 @@ public class UserAccountServiceImpl implements UserAccountService {
 
     @Transactional
     @Override
-    public void save(Account account) {
-        userAccountDAO.save(account);
+    public void save(UserAccount userAccount) {
+        userAccountDAO.save(userAccount);
     }
 
     @Transactional
     @Override
-    public void delete(Account account) {
-        userAccountDAO.delete(account);
+    public void delete(UserAccount userAccount) {
+        userAccountDAO.delete(userAccount);
     }
 
     @Transactional(readOnly = true)
     @Override
-    public Account findOne(long accountId) {
-        return userAccountDAO.findOne(accountId);
+    public UserAccount findOne(long accountId) {
+        return userAccountDAO.findById(accountId).get();
     }
 
     @Transactional(readOnly = true)
     @Override
-    public List<Account> findAll() {
+    public List<UserAccount> findAll() {
         return userAccountDAO.findAll();
     }
 
     @Transactional(readOnly = true)
     @Override
-    public Account findByEmail(String email) {
+    public UserAccount findByEmail(String email) {
         return userAccountDAO.findByEmail(email);
     }
     
-    //--------------------------------------- Операции с аккаунтом пользователя
-    
     @Transactional(readOnly = true)
     @Override
-    public Account getUserAccount(String userLogin) {
+    public UserAccount getUserAccount(String userLogin) {
         return userAccountDAO.findByEmail(userLogin);
     }
 
     @Transactional
     @Override
-    public Account createUserThenAuthenticate(UserDTO user) throws EmailExistsException {
-        Account account = createUserAccount(user);
-        account.setCart(new Cart(account));
-        userAccountDAO.save(account);
+    public UserAccount createUserThenAuthenticate(UserDTO user) throws EmailExistsException {
+        UserAccount userAccount = createUserAccount(user);
+        userAccount.setCart(new Cart(userAccount));
+        userAccountDAO.save(userAccount);
         authenticateUser(user.getEmail(), user.getPassword());
-        return account;
+        return userAccount;
     }
 
-    private Account createUserAccount(UserDTO user) throws EmailExistsException {
+    private UserAccount createUserAccount(UserDTO user) throws EmailExistsException {
         BCryptPasswordEncoder pe = new BCryptPasswordEncoder();
         String hashedPassword = pe.encode(user.getPassword());
         if (findByEmail(user.getEmail()) != null) {
             throw new EmailExistsException();
         }
-        Account account = new Account(user.getEmail(), hashedPassword, user.getName(), true);
-        Contacts contacts = new Contacts(account, user.getPhone(), user.getAddress());
-        account.setContacts(contacts);
-        return account;
+        UserAccount userAccount = new UserAccount(user.getEmail(), hashedPassword, user.getName(), true);
+        Contacts contacts = new Contacts(userAccount, user.getPhone(), user.getAddress());
+        userAccount.setContacts(contacts);
+        return userAccount;
     }
     
     private void authenticateUser(String email, String password) {

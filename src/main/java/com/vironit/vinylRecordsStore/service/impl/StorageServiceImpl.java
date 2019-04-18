@@ -54,7 +54,7 @@ public class StorageServiceImpl implements StorageService {
     @Transactional(readOnly = true)
     @Override
     public Storage findOne(long productId) {
-        return storageDAO.findOne(productId);
+        return storageDAO.findById(productId).get();
     }
 
     @Transactional(readOnly = true)
