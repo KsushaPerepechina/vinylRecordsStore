@@ -8,7 +8,7 @@ import com.vironit.vinylRecordsStore.entity.CartItem;
 import com.vironit.vinylRecordsStore.entity.Product;
 import com.vironit.vinylRecordsStore.dto.CartItemDTO;
 import com.vironit.vinylRecordsStore.service.CartService;
-import com.vironit.dao.dao.CartDAO;
+import com.vironit.vinylRecordsStore.dao.CartDAO;
 import com.vironit.vinylRecordsStore.dao.ProductDAO;
 import com.vironit.vinylRecordsStore.dao.UserAccountDAO;
 import com.vironit.vinylRecordsStore.exception.UnknownProductException;
