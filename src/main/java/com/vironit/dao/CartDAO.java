@@ -1,4 +1,4 @@
-package com.vironit.vinylRecordsStore.dao;
+package com.vironit.dao.dao;
 
 import com.vironit.vinylRecordsStore.entity.Cart;
 import org.springframework.data.jpa.repository.JpaRepository;
