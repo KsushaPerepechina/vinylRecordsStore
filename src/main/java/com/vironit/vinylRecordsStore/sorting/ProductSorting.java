@@ -1,0 +1,16 @@
+package com.vironit.vinylRecordsStore.sorting;
+
+import org.springframework.stereotype.Component;
+
+/**
+ * Опции сортировки и фильтрации списка товаров.
+ */
+@Component
+public class ProductSorting extends AbstractSorter {
+
+    {
+        sortFieldOptions.put("price", "по цене");
+        sortFieldOptions.put("distillery.title", "по винокурне");
+        sortFieldOptions.put("age", "по возрасту");
+    }
+}
